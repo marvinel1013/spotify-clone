@@ -1,3 +1,6 @@
+import MobileMenu from "@/components/MobileMenu";
+import Playerbar from "@/components/Playerbar";
+import Sidebar from "@/components/Sidebar";
 import "@/styles/globals.css";
 import { Nunito } from "next/font/google";
 
@@ -14,7 +17,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={nunito.className}>{children}</body>
+      <body className={nunito.className}>
+        <main className="h-full w-full flex bg-black text-white">
+          <Sidebar />
+          <MobileMenu />
+          {children}
+          <Playerbar />
+        </main>
+      </body>
     </html>
   );
 }

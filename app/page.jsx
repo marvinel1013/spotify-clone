@@ -1,5 +1,5 @@
 function Main() {
-  return <div>Main</div>;
+  return <div className="h-screen flex-grow">Main</div>;
 }
 
 export default Main;
