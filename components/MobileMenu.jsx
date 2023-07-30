@@ -20,7 +20,7 @@ function MobileMenu() {
   }, [setIsOpen]);
 
   return (
-    <div className="fixed top-1 left-1 md:hidden">
+    <div className="fixed top-4 left-1 md:hidden">
       <button onClick={handleOpen} className="bg-green-700 p-1 rounded-full">
         <Bars3Icon className="w-7" />
       </button>
