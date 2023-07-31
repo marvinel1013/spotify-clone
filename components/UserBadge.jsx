@@ -4,7 +4,7 @@ import { useSession, signOut } from "next-auth/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
-function UserBadge({ title }) {
+function UserBadge() {
   const { data: session } = useSession();
   const [openTooltip, setOpenTooltip] = useState(false);
 
@@ -13,9 +13,7 @@ function UserBadge({ title }) {
   };
 
   return (
-    <div className="h-16 flex items-center justify-between">
-      <div className="invisible lg:visible">{title}</div>
-
+    <div className="h-16 flex items-center justify-end">
       {session?.accessToken === undefined ? (
         <div></div>
       ) : (

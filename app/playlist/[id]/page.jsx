@@ -2,6 +2,7 @@
 
 import Container from "@/components/Container";
 import Cover from "@/components/Cover";
+import TracksTable from "@/components/TracksTable";
 import UserBadge from "@/components/UserBadge";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -32,10 +33,10 @@ function Playlists({ params }) {
     getPlaylistData();
   }, [session]);
 
-  console.log("PLAYLISTDATA:", playlistData);
+  // console.log("PLAYLISTDATA:", playlistData);
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full h-screen overflow-y-scroll scrollbar-hide">
       <Cover
         title={playlistData?.name}
         subtitle="PLAYLIST"
@@ -43,8 +44,9 @@ function Playlists({ params }) {
       >
         <UserBadge />
       </Cover>
+
       <Container>
-        <div>Playlist Page</div>
+        <TracksTable tracksData={playlistData?.tracks?.items} />
       </Container>
     </div>
   );

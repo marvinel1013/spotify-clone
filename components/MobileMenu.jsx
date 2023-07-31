@@ -18,7 +18,7 @@ function MobileMenu() {
     "bg-neutral-950 fixed top-0 bottom-0 left-[-500px] w-[55%] border-r border-gray-500/40 p-2 py-4 duration-300 ease-in";
 
   return (
-    <div className="fixed top-4 left-2 md:hidden">
+    <div className="fixed top-4 left-2 md:hidden z-40">
       <button onClick={setIsOpen} className="bg-green-700 p-1 rounded-full">
         <Bars3Icon className="w-7" />
       </button>

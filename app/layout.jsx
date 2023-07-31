@@ -18,9 +18,11 @@ export const metadata = {
 export default function RootLayout({ children, session }) {
   return (
     <html lang="en">
-      <body className={nunito.className}>
+      <body
+        className={`${nunito.className} bg-black text-white overflow-hidden`}
+      >
         <Provider session={session}>
-          <main className="h-full w-full flex bg-black text-white">
+          <main className="h-full w-full flex">
             <Sidebar />
             <MobileMenu />
             {children}
