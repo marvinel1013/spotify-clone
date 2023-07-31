@@ -4,49 +4,30 @@ import Container from "@/components/Container";
 import Cover from "@/components/Cover";
 import TracksTable from "@/components/TracksTable";
 import UserBadge from "@/components/UserBadge";
+import useFetch from "@/hooks/useFetch";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function Playlists({ params }) {
   const { data: session } = useSession();
-  const [playlistData, setPlaylistData] = useState();
-
-  async function getPlaylistData() {
-    if (session?.accessToken || session?.refreshToken) {
-      const response = await fetch(
-        `https://api.spotify.com/v1/playlists/${params.id}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${
-              session?.accessToken || session?.refreshToken
-            }`,
-          },
-        }
-      );
-      const data = await response.json();
-      setPlaylistData(data);
-    }
-  }
+  const { spotifyData, fetchData } = useFetch();
 
   useEffect(() => {
-    getPlaylistData();
+    fetchData(`https://api.spotify.com/v1/playlists/${params.id}`);
   }, [session]);
-
-  // console.log("PLAYLISTDATA:", playlistData);
 
   return (
     <div className="w-full h-screen overflow-y-scroll scrollbar-hide">
       <Cover
-        title={playlistData?.name}
+        title={spotifyData?.name}
         subtitle="PLAYLIST"
-        image={playlistData?.images[0]?.url}
+        image={spotifyData?.images[0]?.url}
       >
         <UserBadge />
       </Cover>
 
       <Container>
-        <TracksTable tracksData={playlistData?.tracks?.items} />
+        <TracksTable tracksData={spotifyData?.tracks?.items} />
       </Container>
     </div>
   );

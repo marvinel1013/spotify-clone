@@ -2,13 +2,12 @@ import { PlayIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
 function TracksTable({ tracksData }) {
-  console.log("TRACKS DATA:", tracksData);
-
   function millisToMinutesAndSeconds(millis) {
     var minutes = Math.floor(millis / 60000);
     var seconds = ((millis % 60000) / 1000).toFixed(0);
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   }
+
   return (
     <div>
       {tracksData?.map((data, index) => (
@@ -37,14 +36,14 @@ function TracksTable({ tracksData }) {
               </p>
               <div className="text-xs lg:text-sm text-gray-500 truncate">
                 <Link
-                  href={`/artist/${data?.track?.artists?.id}`}
+                  href={`/artist/${data?.track?.artists[0]?.id}`}
                   className="hover:underline"
                 >
                   {data?.track?.artists[0]?.name}
                 </Link>
                 {data?.track?.artists.length === 1 ? null : ", "}
                 <Link
-                  href={`/artist/${data?.track?.artists?.id}`}
+                  href={`/artist/${data?.track?.artists[1]?.id}`}
                   className="hover:underline"
                 >
                   {data?.track?.artists[1]?.name}

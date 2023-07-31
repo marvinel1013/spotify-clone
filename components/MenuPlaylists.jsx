@@ -1,37 +1,23 @@
 "use client";
 
+import useFetch from "@/hooks/useFetch";
 import { useOpenMenu } from "@/hooks/useOpenMenu";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function MenuPlaylists() {
   const { data: session } = useSession();
-  const [playlistData, setPlaylistData] = useState([]);
+  const { spotifyData, fetchData } = useFetch();
   const setIsOpen = useOpenMenu((state) => state.setIsOpen);
 
-  async function getUserPlaylists() {
-    if (session?.accessToken || session?.refreshToken) {
-      const response = await fetch("https://api.spotify.com/v1/me/playlists", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${
-            session?.accessToken || session?.refreshToken
-          }`,
-        },
-      });
-      const data = await response.json();
-      setPlaylistData(data?.items);
-    }
-  }
-
   useEffect(() => {
-    getUserPlaylists();
+    fetchData("https://api.spotify.com/v1/me/playlists");
   }, [session]);
 
   return (
     <div className="space-y-2">
-      {playlistData?.map((data) => (
+      {spotifyData?.items?.map((data) => (
         <Link
           onClick={setIsOpen}
           key={data.id}
