@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 
-function Card({ relatedArtistsData, type, rounded }) {
+function Card({ items, type, rounded, href }) {
   const [seeAll, setSeeAll] = useState(false);
   const cardNumber = seeAll ? 20 : 10;
   const pathname = usePathname();
@@ -13,7 +13,7 @@ function Card({ relatedArtistsData, type, rounded }) {
   return (
     <div className="w-full h-full flex justify-center flex-col items-center">
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:grid-cols-4 xl:grid-cols-5 lg:gap-5 xl:gap-12 xl:px-10">
-        {relatedArtistsData
+        {items
           ?.filter((value, index) => index < cardNumber)
           ?.map((data) => (
             <div
@@ -32,11 +32,7 @@ function Card({ relatedArtistsData, type, rounded }) {
                 {data?.name}
               </h3>
               <Link
-                href={
-                  pathname.includes("/artist/")
-                    ? `/artist/${data?.id}`
-                    : `/album/${data?.id}`
-                }
+                href={`/${href}/${data?.id}`}
                 className="absolute right-3 bottom-[40%] opacity-0 group-hover:opacity-100 group-hover:bottom-[50%] duration-200 ease-in"
               >
                 <PlayCircleIcon className="w-12 lg:w-14 xl:w-16 text-green-500" />
@@ -47,14 +43,16 @@ function Card({ relatedArtistsData, type, rounded }) {
             </div>
           ))}
       </div>
-      <div className="w-full flex items-center justify-center mt-5">
-        <button
-          onClick={() => setSeeAll((prev) => !prev)}
-          className="text-center bg-neutral-900 px-4 border border-gray-500 p-1 rounded-full text-sm"
-        >
-          {seeAll ? "Show less" : "Show all"}
-        </button>
-      </div>
+      {items?.length > 10 && (
+        <div className="w-full flex items-center justify-center mt-5">
+          <button
+            onClick={() => setSeeAll((prev) => !prev)}
+            className="text-center bg-neutral-900 px-4 border border-gray-500 p-1 rounded-full text-sm"
+          >
+            {seeAll ? "Show less" : "Show all"}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

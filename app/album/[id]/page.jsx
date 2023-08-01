@@ -37,8 +37,9 @@ function Album({ params }) {
           New Release Albums
         </h1>
         <Card
-          relatedArtistsData={newAlbumData?.albums?.items}
+          items={newAlbumData?.albums?.items}
           rounded={false}
+          href="album"
         />
       </Container>
     </div>

@@ -42,9 +42,10 @@ function Artist({ params }) {
           Related Artists
         </h1>
         <Card
-          relatedArtistsData={relatedArtistsData?.artists}
+          items={relatedArtistsData?.artists}
           type="Artist"
           rounded={true}
+          href="artist"
         />
       </Container>
     </div>
