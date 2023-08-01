@@ -33,17 +33,21 @@ function Cover(props) {
           alt="playlist-image"
           className="object-cover w-20 h-20 md:w-28 md:h-28 lg:w-36 lg:h-36 xl:w-48 xl:h-48"
         />
-        <div>
+        <div className="flex flex-col justify-evenly">
           <h3 className="text-gray-400 tracking-wider font-light text-xs lg:text-sm xl:text-base mb-1">
             {subtitle}
           </h3>
-          <h1 className="font-bold text-lg md:text-xl md:font-extrabold lg:text-3xl xl:text-4xl xl:font-black">
-            {title}
-          </h1>
-          <h4>
-            <span className="text-xs xl:text-sm mr-1.5">{followers}</span>
-            {followers && <span className="text-xs xl:text-sm">Followers</span>}
-          </h4>
+          <div>
+            <h1 className="w-52 md:whitespace-normal truncate md:w-full font-bold text-lg md:text-xl md:font-extrabold lg:text-3xl xl:text-4xl xl:font-black">
+              {title}
+            </h1>
+            <h4>
+              <span className="text-xs xl:text-sm mr-1.5">{followers}</span>
+              {followers && (
+                <span className="text-xs xl:text-sm">Followers</span>
+              )}
+            </h4>
+          </div>
         </div>
       </div>
     </div>

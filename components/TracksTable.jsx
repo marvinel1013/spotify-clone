@@ -1,7 +1,7 @@
 import { PlayIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
-function TracksTable({ tracksData }) {
+function TracksTable({ tracksData, image }) {
   function millisToMinutesAndSeconds(millis) {
     var minutes = Math.floor(millis / 60000);
     var seconds = ((millis % 60000) / 1000).toFixed(0);
@@ -28,10 +28,11 @@ function TracksTable({ tracksData }) {
             <img
               src={
                 data?.track?.album?.images[0]?.url ||
-                data?.album?.images[0]?.url
+                data?.album?.images[0]?.url ||
+                image
               }
               alt="track-image"
-              className="w-10 h-10 object-cover"
+              className="w-10 h-10 object-cover rounded"
             />
             <div className="w-32 lg:w-56 self-end md:ml-1.5">
               <p className="text-sm lg:text-base truncate">
@@ -64,9 +65,12 @@ function TracksTable({ tracksData }) {
 
           {/* Album and Time Duration */}
           <div className="flex items-center justify-between ml-auto xl:ml-0">
-            <p className="hidden xl:inline font-extralight truncate w-48 text-sm text-gray-300 cursor-pointer hover:underline">
+            <Link
+              href={`/album/${data?.track?.album?.id || data?.album?.id}`}
+              className="hidden xl:inline font-extralight truncate w-48 text-sm text-gray-300 cursor-pointer hover:underline"
+            >
               {data?.track?.album?.name || data?.album?.name}
-            </p>
+            </Link>
             <p className="text-xs lg:text-sm font-extralight">
               {millisToMinutesAndSeconds(
                 data?.track?.duration_ms || data?.duration_ms

@@ -3,10 +3,12 @@
 import { PlayCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 function Card({ relatedArtistsData, type, rounded }) {
   const [seeAll, setSeeAll] = useState(false);
   const cardNumber = seeAll ? 20 : 10;
+  const pathname = usePathname();
 
   return (
     <div className="w-full h-full flex justify-center flex-col items-center">
@@ -30,13 +32,17 @@ function Card({ relatedArtistsData, type, rounded }) {
                 {data?.name}
               </h3>
               <Link
-                href={`/artist/${data?.id}`}
+                href={
+                  pathname.includes("/artist/")
+                    ? `/artist/${data?.id}`
+                    : `/album/${data?.id}`
+                }
                 className="absolute right-3 bottom-[40%] opacity-0 group-hover:opacity-100 group-hover:bottom-[50%] duration-200 ease-in"
               >
                 <PlayCircleIcon className="w-12 lg:w-14 xl:w-16 text-green-500" />
               </Link>
               <p className="mt-auto text-sm lg:text-base text-gray-400">
-                {type}
+                {type || data?.release_date}
               </p>
             </div>
           ))}
