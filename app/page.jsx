@@ -16,7 +16,7 @@ function Main() {
     spotifyData: featuredPlaylistData,
     fetchData: getFeaturedPlaylistData,
   } = useFetch();
-  const firstName = session?.user?.name.split(" ");
+  const firstName = session?.user?.name?.split(" ");
 
   useEffect(() => {
     getFeaturedPlaylistData(
