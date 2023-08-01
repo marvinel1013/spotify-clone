@@ -9,7 +9,7 @@ function useFetch() {
 
   async function fetchData(url) {
     if (session?.accessToken || session?.refreshToken) {
-      const response = await fetch(`${url}`, {
+      const response = await fetch(url, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${

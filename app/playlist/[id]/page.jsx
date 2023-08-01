@@ -3,7 +3,6 @@
 import Container from "@/components/Container";
 import Cover from "@/components/Cover";
 import TracksTable from "@/components/TracksTable";
-import UserBadge from "@/components/UserBadge";
 import useFetch from "@/hooks/useFetch";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
@@ -22,9 +21,7 @@ function Playlists({ params }) {
         title={spotifyData?.name}
         subtitle="PLAYLIST"
         image={spotifyData?.images[0]?.url}
-      >
-        <UserBadge />
-      </Cover>
+      />
 
       <Container>
         <TracksTable tracksData={spotifyData?.tracks?.items} />

@@ -1,5 +1,6 @@
 import { shuffle } from "lodash";
 import { useEffect, useState } from "react";
+import UserBadge from "./UserBadge";
 
 const colors = [
   "from-red-500",
@@ -13,7 +14,7 @@ const colors = [
 ];
 
 function Cover(props) {
-  const { children, subtitle, title, followers, image } = props;
+  const { subtitle, title, followers, image } = props;
   const [coverColor, setCoverColor] = useState(null);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ function Cover(props) {
     <div
       className={`w-full h-[250px] lg:h-[290px] xl:h-[370px] bg-gradient-to-b ${coverColor} to-black px-3 flex flex-col justify-between pb-9 xl:pb-14`}
     >
-      {children}
+      <UserBadge />
 
       <div className="flex items-end gap-3 xl:pl-4">
         <img
@@ -39,7 +40,10 @@ function Cover(props) {
           <h1 className="font-bold text-lg md:text-xl md:font-extrabold lg:text-3xl xl:text-4xl xl:font-black">
             {title}
           </h1>
-          <h4>{followers}</h4>
+          <h4>
+            <span className="text-xs xl:text-sm mr-1.5">{followers}</span>
+            {followers && <span className="text-xs xl:text-sm">Followers</span>}
+          </h4>
         </div>
       </div>
     </div>
