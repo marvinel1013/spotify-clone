@@ -3,7 +3,6 @@
 import { PlayCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useState } from "react";
-import { usePathname } from "next/navigation";
 
 function Card({ items, type, rounded, href }) {
   const [seeAll, setSeeAll] = useState(false);
@@ -20,7 +19,7 @@ function Card({ items, type, rounded, href }) {
               className="group bg-neutral-900 flex flex-col items-center rounded-md relative w-36 md:w-40 xl:w-48 h-full p-2 xl:p-4 cursor-pointer"
             >
               <img
-                src={data?.images?.[0]?.url}
+                src={data?.images?.[0]?.url || "/noimage.jpg"}
                 alt="artist-image"
                 className={`w-32 h-32 xl:w-full xl:h-40 ${
                   rounded ? "rounded-full" : "rounded-md"

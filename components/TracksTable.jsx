@@ -1,7 +1,11 @@
+import { usePlayData } from "@/hooks/usePlayData";
 import { PlayIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
 function TracksTable({ tracksData, image, hidden }) {
+  const setPlayData = usePlayData((state) => state.setPlayData);
+  const setImageData = usePlayData((state) => state.setImageData);
+
   function millisToMinutesAndSeconds(millis) {
     var minutes = Math.floor(millis / 60000);
     var seconds = ((millis % 60000) / 1000).toFixed(0);
@@ -21,7 +25,12 @@ function TracksTable({ tracksData, image, hidden }) {
               <p className="text-xs mr-1.5 font-thin group-hover:opacity-0">
                 {index + 1}
               </p>
-              <button className="absolute top-0 -left-1 opacity-0 group-hover:opacity-100">
+              <button
+                onClick={() => {
+                  setPlayData(data), setImageData(image);
+                }}
+                className="absolute top-0 -left-1 opacity-0 group-hover:opacity-100"
+              >
                 <PlayIcon className="w-4 text-green-500" />
               </button>
             </div>

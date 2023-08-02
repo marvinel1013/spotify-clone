@@ -38,7 +38,7 @@ function Search() {
   }, [query]);
 
   return (
-    <div className="h-screen w-full overflow-y-scroll scrollbar-hide pb-20">
+    <div className="h-screen w-full overflow-y-scroll scrollbar-hide">
       <Container>
         <div className="flex items-center justify-end lg:justify-between lg:mt-3">
           <h1 className="hidden lg:block lg:text-xl xl:text-2xl font-extrabold">
