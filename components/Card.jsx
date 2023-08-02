@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 function Card({ items, type, rounded, href }) {
   const [seeAll, setSeeAll] = useState(false);
   const cardNumber = seeAll ? 20 : 10;
-  const pathname = usePathname();
 
   return (
     <div className="w-full h-full flex justify-center flex-col items-center">

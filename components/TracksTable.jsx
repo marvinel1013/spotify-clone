@@ -1,7 +1,7 @@
 import { PlayIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
-function TracksTable({ tracksData, image }) {
+function TracksTable({ tracksData, image, hidden }) {
   function millisToMinutesAndSeconds(millis) {
     var minutes = Math.floor(millis / 60000);
     var seconds = ((millis % 60000) / 1000).toFixed(0);
@@ -69,7 +69,9 @@ function TracksTable({ tracksData, image }) {
               href={`/album/${data?.track?.album?.id || data?.album?.id}`}
               className="hidden xl:inline font-extralight truncate w-48 text-sm text-gray-300 cursor-pointer hover:underline"
             >
-              {data?.track?.album?.name || data?.album?.name}
+              <span className={hidden ? "hidden" : ""}>
+                {data?.track?.album?.name || data?.album?.name}
+              </span>
             </Link>
             <p className="text-xs lg:text-sm font-extralight">
               {millisToMinutesAndSeconds(
