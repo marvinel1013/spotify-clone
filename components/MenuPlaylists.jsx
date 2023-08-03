@@ -5,7 +5,6 @@ import { useOpenMenu } from "@/hooks/useOpenMenu";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect } from "react";
-import LoadingPage from "./LoadingPage";
 
 function MenuPlaylists() {
   const { data: session } = useSession();

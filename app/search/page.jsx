@@ -1,45 +1,57 @@
 "use client";
 
 import Container from "@/components/Container";
-import LoadingPage from "@/components/LoadingPage";
 import SearchGenreCard from "@/components/SearchGenreCard";
 import SearchInput from "@/components/SearchInput";
 import SearchResults from "@/components/SearchResults";
 import UserBadge from "@/components/UserBadge";
-import useFetch from "@/hooks/useFetch";
 import useGreeting from "@/hooks/useGreeting";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 function Search() {
   const { data: session } = useSession();
-  const {
-    spotifyData: searchData,
-    fetchData: getSearchData,
-    isLoading,
-  } = useFetch();
   const { greeting } = useGreeting();
   const firstName = session?.user?.name?.split(" ");
+  const [searchData, setSearchData] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   const [query, setQuery] = useState("");
-  const [queryGenre, setQueryGenre] = useState("");
 
-  useEffect(() => {
-    getSearchData(
-      "https://api.spotify.com/v1/search?" +
-        new URLSearchParams({
-          q: query || queryGenre,
-          type: ["album", "artist", "playlist", "track"],
-        })
-    );
-  }, [session, query, queryGenre]);
-
-  useEffect(() => {
-    function clearQueryGenre() {
-      if (query === "") {
-        setQueryGenre("");
+  async function getSearchData() {
+    try {
+      if (session?.accessToken || session?.refreshToken) {
+        const response = await fetch(
+          "https://api.spotify.com/v1/search?" +
+            new URLSearchParams({
+              q: query,
+              type: ["album", "artist", "playlist", "track"],
+            }),
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${
+                session?.accessToken || session?.refreshToken
+              }`,
+            },
+          }
+        );
+        const data = await response.json();
+        setSearchData(data);
+        setIsLoading(false);
       }
+    } catch (error) {
+      throw new Error(error);
     }
-    clearQueryGenre();
+  }
+
+  useEffect(() => {
+    getSearchData();
+  }, [session, query]);
+
+  useEffect(() => {
+    if (query) {
+      setIsLoading(true);
+    }
   }, [query]);
 
   return (
@@ -60,10 +72,11 @@ function Search() {
           {/* Search Box */}
           <SearchInput query={query} setQuery={setQuery} />
 
-          {query || queryGenre ? (
+          {/* Search Results */}
+          {query ? (
             <SearchResults searchData={searchData} isLoading={isLoading} />
           ) : (
-            <SearchGenreCard setQueryGenre={setQueryGenre} />
+            <SearchGenreCard />
           )}
         </div>
       </Container>

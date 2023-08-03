@@ -51,19 +51,18 @@ const cardData = [
   },
 ];
 
-function SearchGenreCard({ setQueryGenre }) {
+function SearchGenreCard() {
   return (
     <div className="mt-5 xl:mt-10 xl:px-3">
       <h1 className="text-lg mb-3 md:text-xl lg:text-2xl xl:text-3xl xl:mb-8 md:mb-5 font-black">
         Browse all
       </h1>
 
-      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 md:gap-6 lg:gap-7 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 md:gap-6 lg:gap-7 gap-4 cursor-default">
         {cardData.map((data) => (
           <div
             key={data.id}
-            className={`${data.bgColor} cursor-pointer rounded-lg w-full md:h-[180px] lg:h-[200px] h-[130px] p-5 px-3`}
-            onClick={() => setQueryGenre(data.title)}
+            className={`${data.bgColor} rounded-lg w-full md:h-[180px] lg:h-[200px] h-[130px] p-5 px-3`}
           >
             <h1 className="font-black text-xl md:text-2xl">{data.title}</h1>
           </div>

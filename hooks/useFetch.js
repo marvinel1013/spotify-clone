@@ -9,7 +9,6 @@ function useFetch() {
   const [isLoading, setIsLoading] = useState(true);
 
   async function fetchData(url) {
-    setIsLoading(true);
     try {
       if (session?.accessToken || session?.refreshToken) {
         const response = await fetch(url, {
@@ -25,7 +24,7 @@ function useFetch() {
         setIsLoading(false);
       }
     } catch (error) {
-      throw new error();
+      throw new Error(error);
     }
   }
 
