@@ -3,13 +3,14 @@
 import Card from "@/components/Card";
 import Container from "@/components/Container";
 import Cover from "@/components/Cover";
+import LoadingPage from "@/components/LoadingPage";
 import TracksTable from "@/components/TracksTable";
 import useFetch from "@/hooks/useFetch";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 
 function Artist({ params }) {
-  const { spotifyData, fetchData } = useFetch();
+  const { spotifyData, fetchData, isLoading } = useFetch();
   const { spotifyData: artistTracksData, fetchData: getTracks } = useFetch();
   const { spotifyData: relatedArtistsData, fetchData: getRelatedArtists } =
     useFetch();
@@ -25,6 +26,13 @@ function Artist({ params }) {
       `https://api.spotify.com/v1/artists/${params.id}/related-artists`
     );
   }, [session]);
+
+  if (isLoading)
+    return (
+      <div className="w-full h-screen">
+        <LoadingPage center={true} />
+      </div>
+    );
 
   return (
     <div className="w-full h-screen overflow-y-scroll scrollbar-hide">

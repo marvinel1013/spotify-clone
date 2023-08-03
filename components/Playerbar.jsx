@@ -31,7 +31,7 @@ function Playerbar() {
             <h1 className="text-xs md:text-sm lg:text-base truncate">
               {data?.track?.name || data?.name}
             </h1>
-            <h2 className="text-xs lg:text-sm font-extralight text-gray-400">
+            <h2 className="text-xs lg:text-sm font-extralight text-gray-400 truncate">
               {data?.track?.artists[0]?.name || data?.artists[0]?.name}
               {data?.track?.artists.length === 1 || data?.artists?.length === 1
                 ? null

@@ -1,6 +1,7 @@
 "use client";
 
 import Container from "@/components/Container";
+import LoadingPage from "@/components/LoadingPage";
 import SearchGenreCard from "@/components/SearchGenreCard";
 import SearchInput from "@/components/SearchInput";
 import SearchResults from "@/components/SearchResults";
@@ -12,7 +13,11 @@ import { useEffect, useState } from "react";
 
 function Search() {
   const { data: session } = useSession();
-  const { spotifyData: searchData, fetchData: getSearchData } = useFetch();
+  const {
+    spotifyData: searchData,
+    fetchData: getSearchData,
+    isLoading,
+  } = useFetch();
   const { greeting } = useGreeting();
   const firstName = session?.user?.name?.split(" ");
   const [query, setQuery] = useState("");
@@ -56,7 +61,7 @@ function Search() {
           <SearchInput query={query} setQuery={setQuery} />
 
           {query || queryGenre ? (
-            <SearchResults searchData={searchData} />
+            <SearchResults searchData={searchData} isLoading={isLoading} />
           ) : (
             <SearchGenreCard setQueryGenre={setQueryGenre} />
           )}

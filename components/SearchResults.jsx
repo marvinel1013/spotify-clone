@@ -1,8 +1,16 @@
 import Card from "./Card";
+import LoadingPage from "./LoadingPage";
 import SearchCard from "./SearchCard";
 import TracksTable from "./TracksTable";
 
-function SearchResults({ searchData }) {
+function SearchResults({ searchData, isLoading }) {
+  if (isLoading)
+    return (
+      <div className="w-full h-screen mt-40">
+        <LoadingPage />
+      </div>
+    );
+
   return (
     <div className="mt-10">
       {/* Top Section */}

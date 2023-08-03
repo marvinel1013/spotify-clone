@@ -5,6 +5,7 @@ import { useOpenMenu } from "@/hooks/useOpenMenu";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect } from "react";
+import LoadingPage from "./LoadingPage";
 
 function MenuPlaylists() {
   const { data: session } = useSession();
@@ -16,7 +17,7 @@ function MenuPlaylists() {
   }, [session]);
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 h-screen overflow-y-scroll scrollbar-hide">
       {spotifyData?.items?.map((data) => (
         <Link
           onClick={setIsOpen}

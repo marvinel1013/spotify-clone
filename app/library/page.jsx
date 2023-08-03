@@ -2,6 +2,7 @@
 
 import Card from "@/components/Card";
 import Container from "@/components/Container";
+import LoadingPage from "@/components/LoadingPage";
 import UserBadge from "@/components/UserBadge";
 import useFetch from "@/hooks/useFetch";
 import useGreeting from "@/hooks/useGreeting";
@@ -11,13 +12,24 @@ import { useEffect } from "react";
 function Library() {
   const { greeting } = useGreeting();
   const { data: session } = useSession();
-  const { spotifyData: yourPlaylistData, fetchData: getYourPlaylistData } =
-    useFetch();
+  const {
+    spotifyData: yourPlaylistData,
+    fetchData: getYourPlaylistData,
+    isLoading,
+  } = useFetch();
   const firstName = session?.user?.name?.split(" ");
 
   useEffect(() => {
     getYourPlaylistData("https://api.spotify.com/v1/me/playlists");
   }, [session]);
+
+  if (isLoading)
+    return (
+      <div className="w-full h-screen">
+        <LoadingPage center={true} />
+      </div>
+    );
+
   return (
     <div className="h-screen w-full overflow-y-scroll scrollbar-hide">
       <Container>

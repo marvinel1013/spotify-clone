@@ -8,9 +8,10 @@ import Container from "@/components/Container";
 
 import { useEffect } from "react";
 import Card from "@/components/Card";
+import LoadingPage from "@/components/LoadingPage";
 
 function Album({ params }) {
-  const { spotifyData: albumData, fetchData } = useFetch();
+  const { spotifyData: albumData, fetchData, isLoading } = useFetch();
   const { spotifyData: tracksData, fetchData: fetchTracksData } = useFetch();
   const { spotifyData: newAlbumData, fetchData: getNewAlbumData } = useFetch();
   const { data: session } = useSession();
@@ -20,6 +21,13 @@ function Album({ params }) {
     fetchTracksData(`https://api.spotify.com/v1/albums/${params.id}/tracks`);
     getNewAlbumData(`https://api.spotify.com/v1/browse/new-releases`);
   }, [session]);
+
+  if (isLoading)
+    return (
+      <div className="w-full h-screen">
+        <LoadingPage center={true} />
+      </div>
+    );
 
   return (
     <div className="w-full h-screen overflow-y-scroll scrollbar-hide">
